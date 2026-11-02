@@ -28,7 +28,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(228, 170, 66, .65); outline-offset: 3px; }
-#relief-grid { position: fixed; z-index: 0; inset: auto 0 -3vh; width: 100%; height: 42vh; min-height: 260px; pointer-events: none; opacity: .52; }
+#relief-grid { position: absolute; z-index: 0; top: 0; left: 50%; width: 100vw; height: 100%; pointer-events: none; opacity: .84; transform: translateX(-50%); }
 .site-header, main, .site-footer, .floating-status, .app-dialog, .toast { position: relative; z-index: 1; }
 .site-header { position: sticky; z-index: 10; top: 0; height: 70px; padding: 0 clamp(18px, 4vw, 58px); display: flex; align-items: center; justify-content: space-between; gap: 22px; background: rgba(255,255,255,.91); border-bottom: 1px solid rgba(255,255,255,.9); box-shadow: 0 5px 24px rgba(29, 54, 50, .055); backdrop-filter: blur(18px); }
 .brand { display: inline-flex; align-items: center; gap: 9px; flex-shrink: 0; }
@@ -43,7 +43,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .header-cta:hover { background: #f3faf6; }
 main { overflow: hidden; }
 .section-wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
-.hero { position: relative; min-height: 670px; padding: 86px 0 78px; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(390px, .96fr); align-items: center; gap: 18px; }
+.hero { position: relative; isolation: isolate; min-height: 670px; padding: 86px 0 78px; display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(390px, .96fr); align-items: center; gap: 18px; }
 .hero::before { content: ''; position: absolute; top: 50px; left: -14vw; width: 52vw; height: 540px; border-radius: 50%; background: radial-gradient(ellipse, rgba(229,241,235,.72), transparent 68%); z-index: -1; }
 .hero-copy { position: relative; z-index: 1; max-width: 590px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 8px 14px; border: 1px solid #ecd89f; border-radius: 28px; color: #805d2e; background: rgba(255,251,237,.92); font-size: 11px; font-weight: 800; letter-spacing: .035em; box-shadow: 0 5px 18px rgba(180, 139, 58, .08); }
@@ -69,14 +69,18 @@ h1, h2, h3 { font-family: 'Manrope', 'Avenir Next', sans-serif; }
 .button-quiet span { color: #8c7042; font-weight: 700; }
 .trust-line { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 23px; color: #71807e; font-size: 10px; font-weight: 700; }
 .trust-line span::first-letter { color: #2c9370; }
-.hero-scene { position: relative; min-height: 460px; display: grid; place-items: center; perspective: 800px; }
+.hero-scene { position: relative; z-index: 1; min-height: 460px; display: grid; place-items: center; perspective: 800px; }
 .scene-orb { position: absolute; border: 1px solid rgba(255,255,255,.92); border-radius: 50%; background: radial-gradient(circle at 32% 26%, #fff 0 4%, #e6f1ed 18%, #b6d2c7 41%, #e7eee9 66%, rgba(255,255,255,.25) 69%); box-shadow: inset -12px -13px 24px rgba(45,88,75,.12), inset 9px 8px 19px rgba(255,255,255,.96), 0 20px 50px rgba(44,91,77,.14); }
 .orb-one { top: 37px; right: 15%; width: 116px; height: 116px; opacity: .75; }
 .orb-two { bottom: 49px; left: 13%; width: 72px; height: 72px; opacity: .65; }
-.scene-ring { position: absolute; width: 390px; height: 130px; border: 1px solid rgba(171,193,183,.42); border-radius: 50%; transform: rotate(-23deg) rotateX(67deg); }
-.ring-two { width: 320px; height: 230px; border-color: rgba(229,187,99,.42); transform: rotate(48deg) rotateX(69deg); }
-.scene-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 208px; height: 208px; border: 1px solid rgba(255,255,255,.94); border-radius: 50%; background: radial-gradient(circle at 37% 26%, #fff 0, #f5f4e7 28%, #dfeee6 69%, #bed5c8 100%); box-shadow: inset -15px -18px 32px rgba(55,99,81,.12), inset 14px 9px 21px white, 0 29px 65px rgba(49,94,80,.14); transform: translateY(-5px); }
+.scene-ring { position: absolute; width: 390px; height: 130px; border: 1px solid rgba(171,193,183,.42); border-radius: 50%; transform: rotate(-23deg) rotateX(67deg); animation: orbit-one 18s linear infinite; }
+.ring-two { width: 320px; height: 230px; border-color: rgba(229,187,99,.42); transform: rotate(48deg) rotateX(69deg); animation-name: orbit-two; animation-duration: 24s; animation-direction: reverse; }
+.scene-center { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 208px; height: 208px; overflow: hidden; border: 1px solid rgba(255,255,255,.94); border-radius: 50%; background: radial-gradient(circle at 37% 26%, #fff 0, #f5f4e7 28%, #dfeee6 69%, #bed5c8 100%); box-shadow: inset -15px -18px 32px rgba(55,99,81,.12), inset 14px 9px 21px white, 0 29px 65px rgba(49,94,80,.14); transform: translateY(-5px); animation: globe-breathe 6s ease-in-out infinite; }
+.scene-center::before, .scene-center::after { content: ''; position: absolute; z-index: 0; pointer-events: none; border: 1px solid rgba(0,93,80,.2); border-radius: 50%; }
+.scene-center::before { inset: 0 27%; box-shadow: inset 10px 0 0 -9px rgba(0,93,80,.17), inset -10px 0 0 -9px rgba(0,93,80,.17); }
+.scene-center::after { inset: 24% -1%; border-color: rgba(201,161,77,.26); transform: rotate(-8deg); }
 .scene-center > span:first-child { font-size: 60px; filter: drop-shadow(0 8px 7px rgba(49,93,61,.15)); }
+.scene-center > span { position: relative; z-index: 1; }
 .center-caption { margin-top: 8px; color: #57706b; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
 .meal-float { position: absolute; z-index: 2; display: flex; align-items: center; gap: 10px; width: max-content; max-width: 300px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.95); border-radius: 16px; background: rgba(255,255,255,.91); box-shadow: 0 12px 34px rgba(35,71,62,.12); backdrop-filter: blur(13px); animation: bob 5.5s ease-in-out infinite; }
 .float-bakery { top: 101px; left: 0; }
@@ -93,6 +97,11 @@ h1, h2, h3 { font-family: 'Manrope', 'Avenir Next', sans-serif; }
 .scene-bottom-note { position: absolute; bottom: 1px; display: flex; align-items: center; gap: 10px; color: #748380; font-size: 11px; font-weight: 700; }
 .scene-bottom-note .pulse-dot { width: 6px; height: 6px; background: #2e9f75; box-shadow: 0 0 0 4px rgba(46,159,117,.12); }
 @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes orbit-one { from { transform: rotate(-23deg) rotateX(67deg); } to { transform: rotate(337deg) rotateX(67deg); } }
+@keyframes orbit-two { from { transform: rotate(48deg) rotateX(69deg); } to { transform: rotate(408deg) rotateX(69deg); } }
+@keyframes globe-breathe { 0%,100% { translate: 0 -5px; } 50% { translate: 0 -12px; } }
+@keyframes orb-drift { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
+.hero::after { animation: orb-drift 7s ease-in-out infinite; }
 
 .spotlight { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 23px; min-height: 200px; margin-top: 14px; padding: 34px 38px; overflow: hidden; border: 1px solid rgba(224,190,108,.37); border-radius: 24px; background: linear-gradient(110deg, rgba(255,250,232,.95), rgba(255,255,255,.95) 60%, rgba(235,246,239,.93)); box-shadow: 0 13px 38px rgba(82,87,55,.06); }
 .spotlight-icon { position: relative; z-index: 1; display: grid; place-items: center; width: 66px; height: 66px; border: 1px solid #f0d694; border-radius: 20px; background: linear-gradient(145deg,#fff7df,#f8eac2); font-size: 29px; box-shadow: inset 0 0 0 5px rgba(255,255,255,.5); }

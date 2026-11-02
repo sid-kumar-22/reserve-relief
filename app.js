@@ -16,6 +16,7 @@ const resultsCount = document.querySelector('#results-count');
 const dialog = document.querySelector('#app-dialog');
 const dialogContent = document.querySelector('#dialog-content');
 const toast = document.querySelector('#toast');
+let setGridActive = () => {};
 
 function formatPrice(value) { return value === 0 ? '₹0' : `₹${value}`; }
 function visibleMeals() {
@@ -157,7 +158,7 @@ document.querySelector('#wave-toggle').addEventListener('click', (event) => {
   event.currentTarget.setAttribute('aria-pressed', String(active));
   event.currentTarget.closest('.floating-status').classList.toggle('is-off', !active);
   document.querySelector('.status-label').textContent = `3D Wave Grid: ${active ? 'Active' : 'Paused'}`;
-  document.querySelector('#relief-grid').classList.toggle('grid-paused', !active);
+  setGridActive(active);
 });
 
 document.addEventListener('click', (event) => {
@@ -219,62 +220,79 @@ dialog.addEventListener('click', (event) => { if (event.target === dialog) close
 
 function paintGrid() {
   const canvas = document.querySelector('#relief-grid');
+  if (!canvas) return () => {};
   const ctx = canvas.getContext('2d');
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let width = 0; let height = 0; let animation = 0; let time = 0;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function resize() {
-    width = window.innerWidth; height = Math.max(260, window.innerHeight * .42);
-    canvas.width = width * dpr; canvas.height = height * dpr;
-    canvas.style.height = `${height}px`;
+    const bounds = canvas.getBoundingClientRect();
+    width = bounds.width; height = bounds.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function project(row, col, rows, cols, horizon) {
+    const depth = row / rows;
+    const spread = 1 + depth * 1.08;
+    const x = width / 2 + (col - cols / 2) * (width / cols) * spread;
+    const baseY = horizon + (height - horizon) * depth * depth;
+    const amplitude = (4 + depth * 25) * Math.sqrt(depth);
+    const wave = Math.sin(col * .24 + row * .18 + time) * amplitude
+      + Math.sin(col * .1 - row * .27 - time * .72) * amplitude * .38;
+    return { x, y: baseY + wave, depth };
   }
   function draw() {
     if (canvas.classList.contains('grid-paused')) { ctx.clearRect(0, 0, width, height); animation = 0; return; }
     ctx.clearRect(0, 0, width, height);
-    const horizon = height * .25;
-    const rows = 19; const cols = Math.max(16, Math.floor(width / 37));
+    const horizon = height * .43;
+    const rows = 25; const cols = Math.max(28, Math.ceil(width / 31));
     for (let r = 0; r <= rows; r++) {
       const depth = r / rows;
-      const y = horizon + (height - horizon) * depth * depth;
       ctx.beginPath();
       for (let c = 0; c <= cols; c++) {
-        const x = (width / cols) * c;
-        const wave = Math.sin(c * .44 + time + r * .34) * (depth * 10);
-        const py = y + wave;
-        if (!c) ctx.moveTo(x, py); else ctx.lineTo(x, py);
+        const point = project(r, c, rows, cols, horizon);
+        if (!c) ctx.moveTo(point.x, point.y); else ctx.lineTo(point.x, point.y);
       }
-      ctx.strokeStyle = `rgba(0, 99, 81, ${.035 + depth * .07})`;
-      ctx.lineWidth = .7 + depth * .34;
+      ctx.strokeStyle = `rgba(0, 83, 72, ${.07 + depth * .16})`;
+      ctx.lineWidth = .65 + depth * .55;
       ctx.stroke();
     }
-    for (let c = -2; c <= cols + 2; c++) {
+    for (let c = 0; c <= cols; c++) {
       ctx.beginPath();
       for (let r = 0; r <= rows; r++) {
-        const depth = r / rows;
-        const spread = 1 + depth * 1.22;
-        const x = width / 2 + (c - cols / 2) * (width / cols) * spread;
-        const y = horizon + (height - horizon) * depth * depth + Math.sin(c * .44 + time + r * .34) * depth * 10;
-        if (!r) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        const point = project(r, c, rows, cols, horizon);
+        if (!r) ctx.moveTo(point.x, point.y); else ctx.lineTo(point.x, point.y);
       }
-      ctx.strokeStyle = 'rgba(201, 161, 77, .13)'; ctx.lineWidth = .65; ctx.stroke();
+      ctx.strokeStyle = 'rgba(188, 145, 63, .16)'; ctx.lineWidth = .65; ctx.stroke();
     }
     for (let r = 2; r <= rows; r += 2) {
-      const depth = r / rows;
-      const y = horizon + (height - horizon) * depth * depth;
       for (let c = 0; c <= cols; c += 2) {
-        const x = (width / cols) * c;
-        const radius = 1 + depth * 1.3;
-        ctx.beginPath(); ctx.arc(x, y + Math.sin(c * .44 + time + r * .34) * depth * 10, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(208, 163, 73, ${.13 + depth * .28})`; ctx.fill();
+        const point = project(r, c, rows, cols, horizon);
+        const pulse = .82 + (Math.sin(time * 1.8 + r * .4 + c * .13) + 1) * .09;
+        ctx.beginPath(); ctx.arc(point.x, point.y, .8 + point.depth * 1.45, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(197, 150, 64, ${(.18 + point.depth * .31) * pulse})`; ctx.fill();
       }
     }
-    time += .0036;
+    time += .011;
     if (!reducedMotion) animation = requestAnimationFrame(draw);
   }
+  function activate(active) {
+    canvas.classList.toggle('grid-paused', !active);
+    if (!active) {
+      cancelAnimationFrame(animation);
+      animation = 0;
+      ctx.clearRect(0, 0, width, height);
+      return;
+    }
+    if (!animation) draw();
+  }
   resize(); draw();
-  window.addEventListener('resize', () => { resize(); if (!reducedMotion && !animation) animation = requestAnimationFrame(draw); });
+  window.addEventListener('resize', () => {
+    resize();
+    if (!canvas.classList.contains('grid-paused') && !animation) draw();
+  });
+  return activate;
 }
 
 renderMeals();
-paintGrid();
+setGridActive = paintGrid();
