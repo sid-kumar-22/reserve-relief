@@ -225,8 +225,10 @@ function paintGrid() {
   let width = 0; let height = 0; let animation = 0; let time = 0;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function resize() {
-    const bounds = canvas.getBoundingClientRect();
-    width = bounds.width; height = bounds.height;
+    const bounds = canvas.parentElement.getBoundingClientRect();
+    width = canvas.getBoundingClientRect().width || bounds.width;
+    height = bounds.height;
+    canvas.style.height = `${height}px`;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
