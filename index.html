@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f8f7" />
+    <meta name="description" content="Rescue fresh surplus meals, find free community food, and help nourish every table with ReServe Relief." />
+    <title>ReServe Relief — Good food deserves a second chance</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <canvas id="relief-grid" aria-hidden="true"></canvas>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ReServe Relief home">
+        <span class="brand-mark" aria-hidden="true">🌾</span>
+        <span class="brand-name">ReServe</span>
+        <span class="brand-tag">RELIEF</span>
+      </a>
+      <nav class="role-nav" aria-label="Choose your portal">
+        <button class="role-button is-active" type="button" data-role="Customer">👤 <span>Customer</span></button>
+        <button class="role-button" type="button" data-role="Kitchen Partner">👨‍🍳 <span>Kitchen Partner</span></button>
+        <button class="role-button" type="button" data-role="NGO Relief Portal">🤝 <span>NGO Relief Portal</span></button>
+      </nav>
+      <a class="header-cta" href="#discovery-section">Find a meal <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main id="top">
+      <section class="hero section-wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Zero Food Waste <span class="eyebrow-separator">•</span> Nourishing Every Community</div>
+          <h1 id="hero-title">Every good meal deserves a <em>second chance.</em></h1>
+          <p class="hero-subtitle">Stop food waste, deliver nourishment to every table.</p>
+          <p class="hero-description">Rescue freshly prepared surplus from premium restaurants, cafes, and bakeries at <strong>60–75% off.</strong> Unsold meals are automatically redirected to hunger relief NGOs as <strong class="gold-text">100% free donated food.</strong></p>
+          <div class="hero-actions">
+            <a class="button button-primary button-wide" href="#discovery-section">⚡ Explore Surplus Deals</a>
+            <a class="button button-gold button-wide" href="#discovery-section" data-show-free>🌾 View Free Donated Meals</a>
+            <button class="button button-quiet button-wide" type="button" data-sponsor>💝 Sponsor a Meal <span>(₹25)</span></button>
+          </div>
+          <div class="trust-line" aria-label="Our commitments">
+            <span>✓ 100% Free Donated Meals</span><span>✓ FSSAI 2019 Certified</span><span>✓ 500+ Active Kitchens &amp; Relief Centers</span>
+          </div>
+        </div>
+        <div class="hero-scene" aria-label="Surplus meals being rescued and shared">
+          <div class="scene-orb orb-one"></div><div class="scene-orb orb-two"></div>
+          <div class="scene-ring ring-one"></div><div class="scene-ring ring-two"></div>
+          <div class="scene-spark spark-one">✦</div><div class="scene-spark spark-two">✧</div>
+          <div class="meal-float float-bakery"><span class="float-emoji">🥐</span><span><b>Pandhal Cake Shop</b><small>Surprise Bag · ₹99 <i>−72%</i></small></span><span class="live-dot"></span></div>
+          <div class="meal-float float-donation"><span class="float-emoji">🌾</span><span><b>Gurdwara Community Kitchen</b><small>18 Free Meal Packs</small></span><span class="free-chip">FREE</span></div>
+          <div class="scene-center"><span>🥗</span><span class="center-caption">Good food, shared well</span></div>
+          <div class="scene-bottom-note"><span class="pulse-dot"></span> Fresh meals rescued every day</div>
+        </div>
+      </section>
+
+      <section class="spotlight section-wrap" aria-labelledby="spotlight-title">
+        <div class="spotlight-icon" aria-hidden="true">🌟</div>
+        <div class="spotlight-copy">
+          <p class="section-kicker">TODAY'S SPOTLIGHT <span>•</span> LIVE FREE FOOD DONATION FEED</p>
+          <h2 id="spotlight-title">Nourishing communities with 100% free food rescue</h2>
+          <p>Fresh, wholesome meals are listed daily at ₹0 by our kitchen partners and community sponsors. Anyone in need, senior citizens, and volunteer rescue teams can reserve with dignity.</p>
+        </div>
+        <div class="spotlight-actions">
+          <a class="button button-primary" href="#discovery-section" data-show-free>🌾 View free meals</a>
+          <button class="text-button" type="button" data-sponsor>💝 Sponsor a meal <span>₹25</span></button>
+        </div>
+        <div class="spotlight-glow" aria-hidden="true"></div>
+      </section>
+
+      <section class="how-section section-wrap" aria-labelledby="how-title">
+        <div class="section-heading">
+          <p class="section-kicker">HOW IT WORKS <span>•</span> 3 SIMPLE STEPS</p>
+          <h2 id="how-title">From surplus to sustenance in three steps</h2>
+          <p>Zero wait, zero friction — 100% wholesome food, 0% waste. 📝</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-top"><span class="step-number">01</span><span class="step-icon">🌾</span></div>
+            <p class="step-label">KITCHENS &amp; BAKERIES</p><h3>List surplus meals</h3>
+            <p>At closing time, list freshly prepared meals in seconds at 60–75% off or as ₹0 community relief bags.</p>
+            <span class="step-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="step-card">
+            <div class="step-top"><span class="step-number">02</span><span class="step-icon">🛍️</span></div>
+            <p class="step-label">CUSTOMERS &amp; VOLUNTEERS</p><h3>Reserve or donate</h3>
+            <p>Reserve surprise bags for ₹49–₹99 or claim free meals. Unclaimed food is offered to registered relief partners.</p>
+            <span class="step-arrow" aria-hidden="true">↗</span>
+          </article>
+          <article class="step-card">
+            <div class="step-top"><span class="step-number">03</span><span class="step-icon">🤲</span></div>
+            <p class="step-label">FAST COUNTER PICKUP</p><h3>Collect with dignity</h3>
+            <p>Show your pickup pass or 6-digit counter PIN, collect your freshly packed meal, and enjoy it sustainably.</p>
+            <span class="step-arrow" aria-hidden="true">↗</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="discovery-section" class="discovery-section section-wrap" aria-labelledby="discovery-title">
+        <div class="discovery-heading">
+          <div><p class="section-kicker"><span class="live-dot"></span> NEARBY RESCUES <span>•</span> UPDATED THROUGHOUT THE DAY</p><h2 id="discovery-title">Fresh surplus &amp; donated meals near you</h2><p>Find a good meal. Give good food a second chance.</p></div>
+          <button class="location-button" type="button" data-location><span class="location-pin">⌖</span><span><small>SHOWING MEALS NEAR</small><b>Your community</b></span><span class="chevron">⌄</span></button>
+        </div>
+        <div class="discovery-toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-food-input" type="search" placeholder="Search bakery, rice bowl, meals…" aria-label="Search meals" /><kbd>⌘ K</kbd></label>
+          <div class="filter-row" role="group" aria-label="Filter meals">
+            <button class="filter-chip filter-free" id="filter-donated-btn" type="button" aria-pressed="false">🌾 ₹0 Free Donated Meals</button>
+            <button class="filter-chip" id="filter-veg-btn" type="button" aria-pressed="false"><span class="veg-mark"></span> Pure Veg</button>
+            <button class="filter-chip" id="filter-campus-btn" type="button" aria-pressed="false">🏫 Campus</button>
+            <button class="filter-chip" id="filter-price-btn" type="button" aria-pressed="false">💰 Under ₹100</button>
+          </div>
+          <div class="view-toggle" role="group" aria-label="Meal view">
+            <button class="view-button is-selected" id="view-list-toggle" type="button" aria-pressed="true">▤ <span>List</span></button>
+            <button class="view-button" id="view-map-toggle" type="button" aria-pressed="false">⌖ <span>Map</span></button>
+          </div>
+        </div>
+        <div class="results-meta"><span id="results-count">6 fresh rescues</span><span class="results-note"><span class="live-dot"></span> Pickup windows update live</span></div>
+        <div class="meal-grid" id="meal-grid" aria-live="polite"></div>
+        <div class="map-view" id="map-view" hidden>
+          <div class="map-art" aria-label="Illustrated map showing nearby food rescues">
+            <div class="map-river"></div><div class="map-road road-one"></div><div class="map-road road-two"></div><div class="map-road road-three"></div>
+            <span class="map-neighborhood neighborhood-one">RIVERFRONT</span><span class="map-neighborhood neighborhood-two">OLD TOWN</span><span class="map-neighborhood neighborhood-three">CENTRAL MARKET</span>
+            <button class="map-pin pin-one" type="button" data-map-meal="pandhal" aria-label="Pandhal Cake Shop, ₹99">🥐<small>₹99</small></button>
+            <button class="map-pin pin-two free-pin" type="button" data-map-meal="gurdwara" aria-label="Gurdwara Community Kitchen, free">🌾<small>FREE</small></button>
+            <button class="map-pin pin-three" type="button" data-map-meal="bowl" aria-label="Green Bowl, ₹89">🥗<small>₹89</small></button>
+            <button class="map-pin pin-four" type="button" data-map-meal="sourdough" aria-label="Sourdough House, ₹69">🥖<small>₹69</small></button>
+            <div class="map-you"><span></span> YOU</div>
+            <div class="map-legend"><span><i class="legend-paid"></i> Surplus deal</span><span><i class="legend-free"></i> Free meal</span></div>
+          </div>
+          <div class="map-caption"><b>Meals around your community</b><span>Choose a pin to see the pickup details.</span></div>
+        </div>
+        <div class="empty-state" id="empty-state" hidden><span>🥣</span><h3>No meals match those filters</h3><p>Try a different search, or clear your filters to see all nearby rescues.</p><button class="button button-outline" type="button" id="clear-filters">Clear filters</button></div>
+        <div class="discovery-foot"><span>Freshly packed <b>•</b> Clear pickup times <b>•</b> No food goes to waste</span><button class="text-button" type="button" data-role="Kitchen Partner">Have surplus to share? <b>Join as a kitchen ↗</b></button></div>
+      </section>
+
+      <section class="impact-band section-wrap" aria-label="ReServe impact">
+        <div class="impact-intro"><p class="section-kicker">SMALL ACTS, REAL CHANGE</p><h2>Good food travels further when we share it.</h2></div>
+        <div class="impact-stat"><strong>12k<span>+</span></strong><small>meals rescued</small></div>
+        <div class="impact-stat"><strong>500<span>+</span></strong><small>active kitchens</small></div>
+        <div class="impact-stat"><strong>100<span>%</span></strong><small>free meals stay free</small></div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-wrap">
+      <a class="brand footer-brand" href="#top"><span class="brand-mark">🌾</span><span class="brand-name">ReServe</span><span class="brand-tag">RELIEF</span></a>
+      <div class="footer-copy"><b>SURPLUS FOOD RESCUE &amp; COMMUNITY RELIEF NETWORK</b><span>Zero waste • Zero hunger • Nourishing every table</span></div>
+      <span class="footer-compliance">FSSAI 2019 aligned</span>
+    </footer>
+    <div class="floating-status"><span class="pulse-dot"></span><span class="status-label">3D Wave Grid: Active</span><button id="wave-toggle" type="button" aria-label="Toggle animated wave background" aria-pressed="true"><span>↗</span></button></div>
+    <dialog class="app-dialog" id="app-dialog" aria-labelledby="dialog-title"><div class="dialog-content" id="dialog-content"></div></dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
